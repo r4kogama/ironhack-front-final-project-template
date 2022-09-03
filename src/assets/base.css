@@ -19,6 +19,9 @@
     --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
     --vt-c-text-dark-1: var(--vt-c-white);
     --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+    --primary: #3f51b5;
+    --secondary: #e0f7fa;
+    --button: #00bcd4;
   }
   
   /* semantic color variables for this project */
@@ -71,5 +74,10 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  .btn-text-size{
+    font-size: 1.3em;
+    color:white!important;
   }
   

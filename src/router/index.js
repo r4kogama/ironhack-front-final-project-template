@@ -1,15 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import SignUpView from '../user/pages/SignUpView.vue';
-import SignInView from '../user/pages/SignInView.vue';
-import SignInView from '../dashboard/pages/DashboardView.vue';
+import HomeComponent from '../commons/home/HomeComponent.vue';
+import DashboardView from '../dashboard/pages/DashboardView.vue';
+import PageNotFound from '../notfound/components/PageNotFound.vue';
 
 
   const routes = [
-    { path: "/", name: "SignIn", component: SignInView},
-    { path: "/register", name: "SignUp", component: SignUpView },
-    { path: "/dashboard", name: "Dashboard", component: DashboardView },
+    { path: "/home", redirect: '/'},
+    { path: "", name: 'home' ,component: HomeComponent},
+    { path: "/register", name: "signUp", component: SignUpView },
+    { path: "/dashboard", name: "dashboard", component: DashboardView },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: PageNotFound }, 
   ]
-
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_APP_ENV),
