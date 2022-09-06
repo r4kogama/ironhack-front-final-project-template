@@ -7,7 +7,7 @@ import { ref } from '@vue/reactivity';
   const repass = ref(null);
   const form = ref(false);
   const show = ref(false);
-  const terms = ref(true); 
+  const terms = ref(false); 
   const loading = ref(false); 
   const rules = ref({
           required: value => !!value || 'Field is required.',
@@ -27,14 +27,20 @@ import { ref } from '@vue/reactivity';
             return regex.test(value) || "This e-mail isn't valid." ;
           }
         });
-        const emit = defineEmits(['registerForm']);
-        const signUpSubmit = (event) => {
-        if (!form) return;
-        loading = true;
-        setTimeout(() => (loading = false), 2000);
-        console.log(event.target.value);
-        emit('registerForm',  event.target.value);
-  };
+
+      const emit = defineEmits(['registerForm']);
+      const signUpSubmit = (event) => {
+        try{
+          if (!form.value) return;
+          loading.value = true;
+          setTimeout(() => (loading.value = false), 2000);
+          let formValues= [...event.currentTarget.value];
+          //crear clase user
+          emit('registerForm',  event.target.value);
+        }catch(err){
+          console.log(err);
+        }
+      };
 </script>
 
 
@@ -43,13 +49,6 @@ import { ref } from '@vue/reactivity';
     <v-container class="pb-10 pt-10 background-box-singup">
       <v-row no-gutters> 
         <v-col cols="12" lg="12">
-        <router-link   :to="'/home'">
-          <v-btn color="cyan darken-1" class="text-white btn-text-size back-home pl-5 pr-5 mb-5"  size="large"  variant="elevated"
-            rounded>
-            <v-icon color="white" class="icon">mdi-arrow-left-bold-circle-outline</v-icon>
-            Back to Home
-          </v-btn>
-        </router-link>
         <v-card class="mx-auto background-register-title" max-width="380">
           <h2 class=" text-center pt-6 pb-6">User Register Form </h2>
         </v-card>
@@ -118,11 +117,10 @@ import { ref } from '@vue/reactivity';
   font-size: .8em!important;
 }
 .background-register-title{
-  background: url('../../assets/wave-haikei-down.svg') no-repeat;
-  background-size: cover;
-  background-position: 50% 80%;
+  background:#ffffff00 url('../../assets/wave-haikei-down.svg')no-repeat center/cover !important;
+  background-position-y:90%!important;
   letter-spacing: 2px;
-  color:var(--primary);
+  color:var(--primary)!important;
   font-size: 1.2em;
   text-shadow: 2px 2px 0px white, 2px 2px 2px var(--primary);
 }
@@ -131,10 +129,9 @@ import { ref } from '@vue/reactivity';
   background-size: 80%;
   background-position-x: right;
   background-position-y: top;
-  
 }
 .back-home{
-  font-size:.7em;
+  font-size:.7em!important;
 }
 .back-home:hover .icon{
   padding-right: 10px;

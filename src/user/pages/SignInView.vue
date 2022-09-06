@@ -5,7 +5,7 @@ import SignInComponent from '../components/SignInComponent.vue';
     components :{
       AppSingIn : SignInComponent,
     },
-    methods:{
+    methods: {
       loginUser(data){
         console.log(data)
       }

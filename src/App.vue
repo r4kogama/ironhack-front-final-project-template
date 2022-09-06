@@ -5,14 +5,9 @@
 </template>
 
 <script>
-import HomeComponent  from './commons/home/HomeComponent.vue'
-import SignUpComponentVue from './user/components/SignUpComponent.vue'
-
 export default {
   name: 'App',
   components :{
-    AppHome : HomeComponent,
-    AppSignUp: SignUpComponentVue
   },
   data: () => ({
     //
