@@ -10,39 +10,33 @@
   const rules = ref({
           required: value => !!value || 'Field is required',
           min: value => value.length >= 6 || 'Min 6 characters',
+          password: value => {
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+            return regex.test(value) || "Min 6 chars, min 1 capital, min 1 number";
+          },
+          mail: value => {
+            const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return regex.test(value) || "This e-mail isn't valid." ;
+          }
         });
-  const emit = defineEmits(['loginForm']);
+  const emits = defineEmits(['loginForm']);
   const signInSubmit = (event) => {
-        if (!form) return;
-        loading = true;
-        setTimeout(() => (loading = false), 2000);
-        console.log(event.target.value);
-        emit('loginForm',  event.target.value);
+      try{
+        if (!form.value) return;
+          loading.value = true;
+          let formValues = [...event.currentTarget];
+          setTimeout(() => (loadingForm()), 1000);
+          const loadingForm = () => {
+            loading.value = false;//stop animation
+           if(loading.value === false){
+              emits('loginForm', formValues); 
+            }  
+          }
+      }catch(err){
+        console.log(err);
+      }
   };
- 
-/*   export default {
-    data: () => ({
-      form: false,
-      email: null,
-      password: null,
-      loading: false,
-      show: false,
-      rules: {
-          required: value => !!value || 'Field is required',
-          min: value => value.length >= 6 || 'Min 6 characters',
-        },
-    }),
 
-    methods: {
-      signInSubmit () {
-        if (!this.form) return
-        this.loading = true
-        setTimeout(() => (this.loading = false), 2000)
-        this.$emit('loginForm', this.form.value);
-      },
-     
-    },
-  } */
 </script>
     
 <template>
@@ -51,19 +45,19 @@
       <v-row no-gutters> 
         <v-col cols="12" lg="6" sm="12">
           <v-card class="mx-auto px-6 py-8 mt-10 mb-10" color="white" max-width="400" rounded>
-            <h2 class="pb-5 text-center font-weight-medium text-uppercase">Log in</h2>
+            <h2 class="pb-5 text-center font-weight-medium text-uppercase">Login</h2>
             <v-form v-model="form" @submit.prevent="signInSubmit">
-              <v-text-field v-model="email" label="Email" class="mb-2"  placeholder="Enter your Email" variant="outlined" clearable
+              <v-text-field v-model="email" label="Email" class="mb-2"  placeholder="Enter your email" variant="outlined" clearable
                 :readonly="loading"
-                :rules="[rules.required]"
+                :type="'email'"
+                :rules="[rules.required, rules.mail]"
                 prepend-inner-icon="mdi-email-outline">
               </v-text-field>
-  
               <v-text-field v-model="password" label="Password" class="mb-2" placeholder="Enter your password" variant="outlined" clearable
                 :readonly="loading"
                 :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="show ? 'text' : 'password'"
-                :rules="[rules.required, rules.min]"
+                :rules="[rules.required, rules.password]"
                 prepend-inner-icon="mdi-lock-outline"
                 @click:append-inner="show = !show">
               </v-text-field>
@@ -83,7 +77,7 @@
         <v-col cols="12" lg="6" sm="12">
           <v-card class="card-account mx-auto px-6 py-8 mt-10 mb-10 text-center d-flex justify-center align-center  align-content-space-between flex-wrap"   max-width="400" height="336" rounded>
             <h2 class="pb-5 font-weight-medium text-uppercase">Create Account</h2>
-            <p class="font-weight-medium explain-account">Create a new account and we offer you an interface where you can will record your daily tasks, edit them, mark them as completed and more.</p>
+            <p class="font-weight-medium explain-account">Create a new account now, we offer you an interface where you can will record your daily tasks, edit them, mark them as completed and more.</p>
             <v-hover v-slot="{ isHovering, props }">
               <v-btn block class="btn-text-size"  depressed color="cyan accent-2"  :rounded="0" v-bind="props" :elevation="isHovering ? 10 : 2" size="large" variant="elevated">
                 <router-link  :to="'/register'">Sign Up</router-link>

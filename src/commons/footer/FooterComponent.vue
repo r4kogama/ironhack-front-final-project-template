@@ -2,14 +2,16 @@
     <v-footer color="indigo accent-2 text-center">
       <v-row justify="center" no-gutters>
         <v-col cols="12" >
-          <v-btn 
-            v-for="link in links"
-            :key="link"
-            color="cyan accent-1"
-            variant="outline"
-            class="mx-2">
-            {{ link }}
-          </v-btn>
+          <router-link  v-for="link in links" 
+              to="{{link.path}}">
+            <v-btn 
+              :key="link.name"
+              color="cyan accent-1"
+              variant="outline"
+              class="mx-2">
+              {{ link.name }}
+            </v-btn>
+          </router-link>
         </v-col>
         <v-spacer></v-spacer>
         <v-col cols="12" >
@@ -33,7 +35,9 @@
  <script setup>
   import { ref } from '@vue/reactivity';
 
-  const links = ref(['Home', 'About Us', 'Team',' Contact Us']);
+  const links = ref([
+    {path:'/home', name: 'Home'},{ path: '', name: 'About us'},{ path:'', name: 'Team'},{path: '', name: 'Contact Us'}
+    ]);
   const icons = ref(['mdi-facebook', 'mdi-twitter', 'mdi-linkedin']);
  </script> 
 

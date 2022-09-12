@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from '@vue/reactivity';
-
   const email = ref(null);
   const name = ref(null);
   const password = ref(null);
@@ -12,14 +11,14 @@ import { ref } from '@vue/reactivity';
   const rules = ref({
           required: value => !!value || 'Field is required.',
           min: value => value.length >= 6 || 'Min 6 characters.',
-          max: value => value.length <= 15 || 'Max 15 characters.',
+          max: value => value.length <= 20 || 'Max 20 characters.',
           matchPassword: (value) => value === password.value || 'The password confirmation does not match.',
           password: value => {
             const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
             return regex.test(value) || "Min 6 chars, min 1 capital, min 1 number";
           },
           nameUser: value => {
-            const regex = /^[^0-9][a-zA-Z\s]{2,15}$/;
+            const regex = /^[^0-9][a-zA-Z\s]{2,20}$/;
             return regex.test(value) || "This name user isn't valid.";
           },
           mail: value => {
@@ -28,15 +27,19 @@ import { ref } from '@vue/reactivity';
           }
         });
 
-      const emit = defineEmits(['registerForm']);
+      const emits = defineEmits(['registerForm']);
       const signUpSubmit = (event) => {
         try{
           if (!form.value) return;
           loading.value = true;
-          setTimeout(() => (loading.value = false), 2000);
-          let formValues= [...event.currentTarget.value];
-          //crear clase user
-          emit('registerForm',  event.target.value);
+          let formValues = [...event.currentTarget];
+          setTimeout(() => (loadingForm()), 2000);
+          const loadingForm = () => {
+            loading.value = false;//stop animation
+            if(loading.value === false){
+              emits('registerForm', formValues); 
+            } 
+          }
         }catch(err){
           console.log(err);
         }
@@ -45,7 +48,7 @@ import { ref } from '@vue/reactivity';
 
 
 <template>
-  <v-sheet class="pa-6 d-flex align-center pb-10 pt-10" height="100vh"  color="#e0f7fac2" rounded>
+  <v-sheet class="pa-6 d-flex align-center pb-10 pt-10" min-height="100vh"  color="#e0f7fac2" rounded>
     <v-container class="pb-10 pt-10 background-box-singup">
       <v-row no-gutters> 
         <v-col cols="12" lg="12">
@@ -57,9 +60,15 @@ import { ref } from '@vue/reactivity';
           <v-form v-model="form" @submit.prevent="signUpSubmit">
             <v-container>
               <v-text-field v-model="name" label="Name" placeholder="Enter your name" variant="outlined" clearable
+                :type="'text'"
+                :rules="[rules.nameUser, rules.required]"
+                prepend-inner-icon="mdi-card-account-details-outline">
+              </v-text-field>
+              <v-spacer class="pt-2 pb-2"></v-spacer>
+              <v-text-field v-model="surname" label="Surname" placeholder="Enter your surname" variant="outlined" clearable
                 prepend-inner-icon="mdi-card-account-details-outline"
                 :type="'text'"
-                :rules="[rules.nameUser, rules.max, rules.required]">
+                :rules="[rules.nameUser, rules.required]">
               </v-text-field>
               <v-spacer class="pt-2 pb-2"></v-spacer>
               <v-text-field v-model="email" label="Email" placeholder="Enter your email" variant="outlined" clearable
@@ -130,15 +139,5 @@ import { ref } from '@vue/reactivity';
   background-position-x: right;
   background-position-y: top;
 }
-.back-home{
-  font-size:.7em!important;
-}
-.back-home:hover .icon{
-  padding-right: 10px;
-  transition: all 250ms ease-out;
-}
-.back-home .icon{
-  padding-right: 5px;
-  transition: all 250ms ease-out;
-}
+
 </style>

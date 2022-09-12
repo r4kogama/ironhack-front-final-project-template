@@ -1,44 +1,26 @@
 
 <template>
-  <v-app>
-    <AppHeader :drawer="drawer"  @clickMenu="showMenu()"/>
-      <AppMenu :drawer="drawer" />
-      <v-main>
-        <v-sheet class="overflow-y-auto pa-6 background-box-headling" color="#E0F7FA" rounded>
-          <h1 class="text-center mt-10 mb-10" color="white">Task Web Application</h1>
-        </v-sheet>
-        <v-spacer class="pb-5"></v-spacer>
-        <AppSignIn/>
-        <v-spacer class="pb-5"></v-spacer>
-      </v-main>
-      <AppFooter/>
-  </v-app>
+  <v-main >
+    <v-sheet class="overflow-y-auto pa-6 background-box-headling" color="#E0F7FA" rounded>
+      <h1 class="text-center mt-10 mb-10" color="white">Task Web Application</h1>
+    </v-sheet>
+    <v-spacer class="pb-5"></v-spacer>
+    <AppSignIn/>
+    <v-spacer class="pb-5"></v-spacer>
+  </v-main>
+  <AppFooter/>
 </template>
 
-<script >
+<script setup>
   
-  import HeaderComponent  from "../header/HeaderComponent.vue";
-  import FooterComponent  from "../footer/FooterComponent.vue"; 
-  import SignInView from '../../user/pages/SignInView.vue';
-  import MenuComponent from "../menu/MenuComponent.vue";
+  import AppFooter  from "../footer/FooterComponent.vue"; 
+  import AppSignIn from '../../user/pages/SignInView.vue';
+  import { createApp } from 'vue';
 
-  export default {
-    name: "Home",
-    components :{
-      AppHeader : HeaderComponent,
-      AppFooter : FooterComponent,
-      AppSignIn : SignInView,
-      AppMenu : MenuComponent
-    },
-    data: () => ({
-       drawer: false, 
-    }),
-    methods:{
-      showMenu(){
-        this.drawer = !this.drawer;//drawer === false ? true : false;
-      }
-    }
-  }; 
+  const app = createApp({});
+  app
+    .component('AppFooter', AppFooter)
+    .component('AppSignIn', AppSignIn)
 </script>
 
 <style>
