@@ -11,6 +11,7 @@ export const userStore = defineStore('user', {
     async fetchUser () {
       const user = await supabase.auth.user();
       this.user = user;
+      
     },
     async fetchUserData () {
       const { data, error } = await supabase.from('userdata').select('*').match({ id: this.user.id });
@@ -40,12 +41,13 @@ export const userStore = defineStore('user', {
       });
       if (error) throw error;
       if (user) this.user = user;//actualiza el estado
+      this.fetchUserData();
     },
     async signOut () {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
-      this.user = null;
       this.userData = null;
+      this.user = null;
     }
   },
 
@@ -56,6 +58,7 @@ export const userStore = defineStore('user', {
         key: 'user',
         storage: localStorage
       }
+      
     ]
   },
 });

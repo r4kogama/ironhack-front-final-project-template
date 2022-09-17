@@ -44,16 +44,16 @@
   };
   //update status actual task by id
   const updateTaskComplete = async (data) =>{
-    let task = new Task(data.id, null, null, !data.is_complete);
+   let task = new Task(parseInt(data[0]), null, null, !data[1].value);
     if(typeof task === 'object'){
       try {
-        taskStoreService.changeStatus( task, data.user_id );
+        taskStoreService.changeStatus( task, userStoreService.user.id );
       } catch (err) {
         console.log(err);
       }
     }else {
         console.log("Unexpected error nonexistent task data, restart the page");
-    }
+    } 
   };
 
   //update info task by id

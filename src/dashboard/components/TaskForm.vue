@@ -100,5 +100,12 @@
     flex-direction: column;
     padding: 0px 20px;
 }
+.dialog-edit .v-card--variant-elevated:first-child {
+    box-shadow: none;
+}
+.background-register-title {
+  background-position-y: 96%!important;
+  box-shadow: none;
+}
 </style>
     

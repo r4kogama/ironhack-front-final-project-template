@@ -66,7 +66,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" lg="6" sm="12">
-          <v-card class="card-account mx-auto px-6 py-8 mt-10 mb-10 text-center d-flex justify-center align-center  align-content-space-between flex-wrap"   max-width="400" height="336" rounded>
+          <v-card class="card-account mx-auto px-6 py-8 mt-10 mb-10 text-center d-flex justify-center align-center  align-content-space-between flex-wrap"   max-width="400"  rounded>
             <h2 class="pb-5 font-weight-medium text-uppercase">Create Account</h2>
             <p class="font-weight-medium explain-account">Create a new account now, we offer you an interface where you can will record your daily tasks, edit them, mark them as completed and more.</p>
             <v-hover v-slot="{ isHovering, props }">
@@ -98,6 +98,7 @@
 }
 .explain-account{
   font-size:1.2em;
+  padding: 28px 0px;
 }
 </style>
     

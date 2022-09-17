@@ -12,7 +12,7 @@
                 v-for="task in tasks"
                 :key="task.id"
                 dot-color="green-lighten-1"
-                icon="mdi-bookmark-check"
+                icon="mdi-clipboard-check-outline"
                 size="large">
                 <v-alert
                   :value="true"

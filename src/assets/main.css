@@ -70,7 +70,10 @@ a,
   opacity: calc(0.2 * var(--v-theme-overlay-multiplier))!important;
   transition:all  250ms ease-out;
 }
-
+.btn-edit{
+  width: 35px;
+  height: 35px;
+}
 .style-icon{
   min-width: 0px;
   border-radius: 50%;

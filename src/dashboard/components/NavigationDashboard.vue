@@ -15,6 +15,7 @@
   const { task, taskCount, taskCountComplete } = storeToRefs(taskStoreService);
   const form = ref(false);
   const list = ref(false);
+  const userName = ref(userData.name);
   const complete = ref(false);
   const loading = ref(false);
   const app = createApp({});
@@ -64,7 +65,6 @@
     form.value = !form.value;
   }
 
- 
   const showLists = () => {
     if(form.value === true){
       form.value = !form.value;
@@ -82,7 +82,7 @@
     complete.value = !complete.value;
   }
 
-  const emits = defineEmits(['clickLogOut','createTask','updateComplete','updateEdit']);
+  const emits = defineEmits(['clickLogOut','createTask','updateComplete','updateEdit','removeTask']);
   const logOutUser = () =>{
     emits('clickLogOut');
   };

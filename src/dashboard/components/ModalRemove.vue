@@ -5,7 +5,7 @@
          <v-dialog v-model="dialog" persistent >
            <template v-slot:activator="{ props }">
                 <v-btn class="style-icon" v-bind="props"  color="error" >
-                  <v-icon size="large" text-color="white" >mdi-clipboard-remove</v-icon>
+                  <v-icon size="large" text-color="white" >mdi-clipboard-remove-outline</v-icon>
                   <v-tooltip activator="parent" location="top">Remove Task</v-tooltip>
                 </v-btn>
            </template>
@@ -26,14 +26,14 @@
                       <v-hover v-slot="{ isHovering, props }">
                         <v-btn v-bind="props" 
                         :elevation="isHovering ? 3 : 2" 
-                        class="btn-close btn-style-confirm pr-5 pl-5" color="#00bcd4"  
-                        @click.native="dialog = false">no 
+                        class="btn-close btn-style-confirm pr-5 pl-5" color="white"  
+                        @click.stop="dialog = false">no 
                         <v-icon class="pl-4">mdi-cancel</v-icon></v-btn>
                       </v-hover>
                     </div>
                     <div class="box-confirm">
                       <v-hover v-slot="{ isHovering, props }">
-                        <v-btn class="btn-style-confirm" v-bind="props" type="submit" :loading="loading" :elevation="isHovering ? 3 : 2" color="error" >
+                        <v-btn class="btn-style-confirm" v-bind="props" type="submit"  :loading="loading" :elevation="isHovering ? 3 : 2" color="error" >
                           Yes
                           <v-icon class="pl-4" color="error" size="x-large" >mdi-close-octagon</v-icon>
                         </v-btn>
@@ -83,7 +83,7 @@
      color:white;
    }
    .btn-close{
-     background: var(--primary);
+     background: var(--button);
    }
 
    .box-card-delete{

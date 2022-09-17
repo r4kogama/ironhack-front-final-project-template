@@ -1,5 +1,5 @@
 <template>
-    <v-dialog  v-model="dialog" persistent>
+    <v-dialog class="dialog-edit" v-model="dialog" persistent>
       <template v-slot:activator="{ props }">
         <v-btn class="btn-edit style-icon" color="warning"  variant="elevated"  v-bind="props" >
           <v-icon  text-color="white" >mdi-pencil</v-icon>
@@ -93,7 +93,7 @@
   
 
 
-  const emits = defineEmits(['editTask']);
+  const emits = defineEmits(['editTask','emitRemoveTask']);
   const editTaskSubmit = (event) => {
     try{
       if (!form.value) return;
@@ -104,6 +104,7 @@
         loading.value = false;//stop animation
         if(loading.value === false){
           emits('editTask', formValues); 
+          dialog.value = false;
         } 
       }
     }catch(err){
@@ -115,23 +116,11 @@
   };
 </script>
 <style scoped>
-  .btn-edit{
-    position: absolute;
-    z-index: 1;
-    right: 9px;
-    top: 15px;
-    width: 35px;
-    height: 35px;
-   
-  }
 
 .v-timeline--vertical.v-timeline {
     grid-template-columns: auto 70px auto;
 }
-.v-timeline--vertical.v-timeline .v-timeline-item:first-child .v-timeline-item__body:first-child .btn-edit {
-  right: -15px;
-  top: 40px;
-}
+
 
 .btn-close{
     background: var(--secondary);
@@ -165,4 +154,9 @@
     justify-content: flex-end;
     flex-wrap: wrap;
 }
+.dialog-edit .background-register-title {
+  background-position-y: 75%!important;
+  box-shadow: none;
+}
+
 </style>

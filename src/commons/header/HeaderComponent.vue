@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar fixed    color="indigo accent-2" class="d-flex justify-space-between align-center text-right pa-2" justify="center" density="compact">
+    <v-app-bar fixed    color="indigo accent-2" class="d-flex app-style justify-space-between align-center text-right pa-2" justify="center" density="compact">
       <router-link v-if="this.$route.path === '/register'"  :to="'/home'">
         <v-btn color="cyan darken-1" class="text-white btn-text-size back-home pl-5 pr-5 "  size="large"  variant="elevated"
         rounded>
@@ -12,8 +12,8 @@
       </v-app-bar-title>
       <template v-slot:prepend>
           <v-app-bar-nav-icon v-if="drawer === false"  @click.stop="$emit('clickMenu')" ></v-app-bar-nav-icon>
-          <v-btn  v-else-if="drawer === true"  @click.stop="$emit('clickMenu')" color="transparent"  variant="elevated" >
-            <v-icon class="icon-close" color="white">mdi-close-thick</v-icon>
+          <v-btn class="style-icon" min-height="49px"   v-else-if="drawer === true"  @click.stop="$emit('clickMenu')" color="transparent"  variant="elevated" >
+            <v-icon class="icon-close"   color="white">mdi-close-thick</v-icon>
           </v-btn>
       </template>
     </v-app-bar>
@@ -31,7 +31,7 @@ export default {
 </script> 
 <style scoped>
 .icon-close{
-  font-size:2em;
+  font-size:1.3em;
 }
 
 .back-home{
@@ -44,5 +44,8 @@ export default {
 .back-home .icon{
   padding-right: 5px;
   transition: all 250ms ease-out;
+}
+.app-style .v-toolbar__prepend {
+     margin-inline-start: 0px; 
 }
 </style>
