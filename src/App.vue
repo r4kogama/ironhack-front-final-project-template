@@ -11,7 +11,7 @@
 <script setup>
   import AppHeader from "./commons/header/HeaderComponent.vue";
   import AppMenu from "./commons/menu/MenuComponent.vue";
-
+  import { userStore } from "./stores/ServiceUser.js";
   import { onMounted, ref } from 'vue';
   import { storeToRefs } from "pinia";
   import { useRouter } from "vue-router";
@@ -23,24 +23,26 @@
     .component('AppHeader', AppHeader)
     .component('AppMenu', AppMenu)
 
-
-     const drawer = ref(false);
+    const drawer = ref(false);
+    const userStoreService = userStore();
+    const { user } = storeToRefs(userStoreService);
+    const router = useRouter();
 
      const showMenu = () =>{
       drawer.value = !drawer.value;
-      console.log(drawer.value)
+      console.log(drawer.value);
      };
 
-    /*  onMounted(async () => {
-        try {
-          await userStore.fetchUser();
-          if (!user.value) {
-            router.push({ path: "/auth" });
-          } else {
-            router.push({ path: "/" });
-          }
-        } catch (e) {
-          console.log(e);
+    onMounted(async () => {
+      try {
+        await userStoreService.fetchUser();
+        if (user.value !== null) {
+          router.push({ path: "/dashboard" });
+        } else {
+          router.push({ path: "/" });
         }
-      });  */
+      } catch (err) {
+        console.log(err);
+      }
+    });  
 </script>

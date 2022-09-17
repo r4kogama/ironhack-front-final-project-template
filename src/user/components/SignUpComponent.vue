@@ -8,42 +8,28 @@ import { ref } from '@vue/reactivity';
   const show = ref(false);
   const terms = ref(false); 
   const loading = ref(false); 
-  const rules = ref({
-          required: value => !!value || 'Field is required.',
-          min: value => value.length >= 6 || 'Min 6 characters.',
-          max: value => value.length <= 20 || 'Max 20 characters.',
-          matchPassword: (value) => value === password.value || 'The password confirmation does not match.',
-          password: value => {
-            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-            return regex.test(value) || "Min 6 chars, min 1 capital, min 1 number";
-          },
-          nameUser: value => {
-            const regex = /^[^0-9][a-zA-Z\s]{2,20}$/;
-            return regex.test(value) || "This name user isn't valid.";
-          },
-          mail: value => {
-            const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return regex.test(value) || "This e-mail isn't valid." ;
-          }
-        });
+  const props =  defineProps({
+    formRules: Object,
+  })
 
-      const emits = defineEmits(['registerForm']);
-      const signUpSubmit = (event) => {
-        try{
-          if (!form.value) return;
-          loading.value = true;
-          let formValues = [...event.currentTarget];
-          setTimeout(() => (loadingForm()), 2000);
-          const loadingForm = () => {
-            loading.value = false;//stop animation
-            if(loading.value === false){
-              emits('registerForm', formValues); 
-            } 
-          }
-        }catch(err){
-          console.log(err);
-        }
-      };
+
+  const emits = defineEmits(['registerForm']);
+  const signUpSubmit = (event) => {
+    try{
+      if (!form.value) return;
+      loading.value = true;
+      let formValues = [...event.currentTarget];
+      setTimeout(() => (loadingForm()), 2000);
+      const loadingForm = () => {
+        loading.value = false;//stop animation
+        if(loading.value === false){
+          emits('registerForm', formValues); 
+        } 
+      }
+    }catch(err){
+      console.log(err);
+    }
+  };
 </script>
 
 
@@ -61,27 +47,27 @@ import { ref } from '@vue/reactivity';
             <v-container>
               <v-text-field v-model="name" label="Name" placeholder="Enter your name" variant="outlined" clearable
                 :type="'text'"
-                :rules="[rules.nameUser, rules.required]"
+                :rules="[props.formRules.nameUser, props.formRules.required]"
                 prepend-inner-icon="mdi-card-account-details-outline">
               </v-text-field>
               <v-spacer class="pt-2 pb-2"></v-spacer>
               <v-text-field v-model="surname" label="Surname" placeholder="Enter your surname" variant="outlined" clearable
                 prepend-inner-icon="mdi-card-account-details-outline"
                 :type="'text'"
-                :rules="[rules.nameUser, rules.required]">
+                :rules="[props.formRules.nameUser, props.formRules.required]">
               </v-text-field>
               <v-spacer class="pt-2 pb-2"></v-spacer>
               <v-text-field v-model="email" label="Email" placeholder="Enter your email" variant="outlined" clearable
               prepend-inner-icon="mdi-email-outline" 
               :type="'email'" 
-              :rules="[rules.mail, rules.required]">
+              :rules="[props.formRules.mail, props.formRules.required]">
               </v-text-field>
               <v-spacer class="pt-2 pb-2"></v-spacer>
               <v-text-field v-model="password" label="Password" class="" placeholder="Enter your password" variant="outlined" clearable
                 :readonly="loading"
                 :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="show ? 'text' : 'password'"
-                :rules="[rules.required, rules.password]"
+                :rules="[props.formRules.required, props.formRules.password]"
                 prepend-inner-icon="mdi-lock-outline"
                 @click:append-inner="show = !show">
               </v-text-field>
@@ -89,10 +75,10 @@ import { ref } from '@vue/reactivity';
               <v-text-field v-model="repass" label="Repeat Password" placeholder="Repeat your password" variant="outlined" clearable
                 prepend-inner-icon="mdi-lock-outline"
                 :type="'password'"
-                :rules="[rules.required, rules.matchPassword]">
+                :rules="[props.formRules.required, props.formRules.matchPassword]">
               </v-text-field>
               <v-checkbox v-model="terms" class="terms" color="#3f51b5" label="I agree to site terms and conditions"
-                :rules="[rules.required]">
+                :rules="[props.formRules.required]">
               </v-checkbox>
             </v-container>
             <v-divider></v-divider>
@@ -127,11 +113,6 @@ import { ref } from '@vue/reactivity';
 }
 .background-register-title{
   background:#ffffff00 url('../../assets/wave-haikei-down.svg')no-repeat center/cover !important;
-  background-position-y:90%!important;
-  letter-spacing: 2px;
-  color:var(--primary)!important;
-  font-size: 1.2em;
-  text-shadow: 2px 2px 0px white, 2px 2px 2px var(--primary);
 }
 .background-box-singup{
   background: url('../../assets/undraw_personal_information_re_vw8a.svg') no-repeat;

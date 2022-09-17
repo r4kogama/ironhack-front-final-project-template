@@ -3,7 +3,7 @@
       <v-row justify="center" no-gutters>
         <v-col cols="12" >
           <router-link  v-for="link in links" 
-              to="{{link.path}}">
+              :to="link.path">
             <v-btn 
               :key="link.name"
               color="cyan accent-1"
@@ -36,8 +36,10 @@
   import { ref } from '@vue/reactivity';
 
   const links = ref([
-    {path:'/home', name: 'Home'},{ path: '', name: 'About us'},{ path:'', name: 'Team'},{path: '', name: 'Contact Us'}
-    ]);
+    { path:'/home', name: 'Home'},
+    { path: '', name: 'About us'},
+    { path:'', name: 'Team'},
+    { path: '', name: 'Contact Us'}]);
   const icons = ref(['mdi-facebook', 'mdi-twitter', 'mdi-linkedin']);
  </script> 
 

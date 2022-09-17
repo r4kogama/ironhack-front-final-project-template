@@ -1,7 +1,9 @@
   <template>
     <v-navigation-drawer color="cyan" class="mt-3" v-model="drawer" temporary>
-      <v-list-item prepend-avatar="" title=""></v-list-item>
-      <v-list density="compact"  nav>
+      <v-list class="pt-10" density="compact"  nav>
+        <router-link :to="'/dashboard'" v-if="userData !== null">
+          <v-list-item prepend-avatar="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="text-size-menu"  :title="userData.name.concat(' ').concat(userData.surname).toUpperCase()" value="dashboard"></v-list-item>
+        </router-link>
         <router-link :to="'/home'">
           <v-list-item class="text-size-menu"  title="HOME" value="home"></v-list-item>
         </router-link>
@@ -15,17 +17,15 @@
     </v-navigation-drawer>
   </template>
 
-  <script >
-    export default{
-      name: "Menu",
-      components:{},
-      data: () => ({
-       
-      }),
-      props: {
-        drawer: Boolean,
-      },
-    };
+  <script setup>
+     import { userStore } from "../../stores/ServiceUser.js";
+    import { storeToRefs } from "pinia";
+    import { createApp, onMounted, ref } from 'vue';
+    const userStoreService = userStore();
+    const { user, userData } = storeToRefs(userStoreService);
+    const props = defineProps({
+      drawer: Boolean,
+    });
   </script>
 
   <style scoped>

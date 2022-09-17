@@ -5,6 +5,7 @@
       <h1 class="text-center mt-10 mb-10" color="white">Task Web Application</h1>
     </v-sheet>
     <v-spacer class="pb-5"></v-spacer>
+    <div class="wrapper-tostar"></div>
     <AppSignIn/>
     <v-spacer class="pb-5"></v-spacer>
   </v-main>

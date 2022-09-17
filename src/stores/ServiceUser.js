@@ -1,15 +1,21 @@
 import { defineStore } from 'pinia';
 import { supabase } from '../supabase';
 
-export const useUserStore = defineStore('user', {
+export const userStore = defineStore('user', {
   state: () => ({
     user: null,
+    userData : null
   }),
 
   actions: {
     async fetchUser () {
       const user = await supabase.auth.user();
-      this.user = user
+      this.user = user;
+    },
+    async fetchUserData () {
+      const { data, error } = await supabase.from('userdata').select('*').match({ id: this.user.id });
+      if(error) throw error;
+      this.userData = data[0];
     },
     //only auth
     async signUpAuth ( email, password) {
@@ -17,7 +23,6 @@ export const useUserStore = defineStore('user', {
         email: email,
         password: password
       });
-      console.log(user);
       if (error) throw error;
       if (user) this.user = user;
     },
@@ -26,7 +31,6 @@ export const useUserStore = defineStore('user', {
       const { dataUser, error } = await supabase
       .from('userdata')
       .insert([{ id: this.user.id, name: nameUser, surname: surname, avatar: null, terms: terms  }])
-      console.log(dataUser);
       if (error) throw error;
     },
     async logInUser (email, password) {

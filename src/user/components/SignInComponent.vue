@@ -1,5 +1,4 @@
 <script setup>
-
   import { ref } from '@vue/reactivity';
 
   const email = ref('');
@@ -7,18 +6,10 @@
   const form = ref(false);
   const show = ref(false);
   const loading = ref(false); 
-  const rules = ref({
-          required: value => !!value || 'Field is required',
-          min: value => value.length >= 6 || 'Min 6 characters',
-          password: value => {
-            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
-            return regex.test(value) || "Min 6 chars, min 1 capital, min 1 number";
-          },
-          mail: value => {
-            const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return regex.test(value) || "This e-mail isn't valid." ;
-          }
-        });
+  const props =  defineProps({
+    formRules: Object,
+  })
+ 
   const emits = defineEmits(['loginForm']);
   const signInSubmit = (event) => {
       try{
@@ -50,14 +41,14 @@
               <v-text-field v-model="email" label="Email" class="mb-2"  placeholder="Enter your email" variant="outlined" clearable
                 :readonly="loading"
                 :type="'email'"
-                :rules="[rules.required, rules.mail]"
+                :rules="[props.formRules.required, props.formRules.mail]"
                 prepend-inner-icon="mdi-email-outline">
               </v-text-field>
               <v-text-field v-model="password" label="Password" class="mb-2" placeholder="Enter your password" variant="outlined" clearable
                 :readonly="loading"
                 :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="show ? 'text' : 'password'"
-                :rules="[rules.required, rules.password]"
+                :rules="[props.formRules.required, props.formRules.password]"
                 prepend-inner-icon="mdi-lock-outline"
                 @click:append-inner="show = !show">
               </v-text-field>

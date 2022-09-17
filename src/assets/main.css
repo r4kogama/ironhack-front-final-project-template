@@ -1,5 +1,18 @@
 @import "./base.css";
 
+/********* Animations *********/
+@keyframes tostar{
+  from{ 
+      opacity: 0;
+      transform: translateY(50%) rotateZ(-1deg);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0%)  rotateZ(0deg);
+  }
+}  
+
+
 #app {
   min-height: 100vh;
   width: 100%;
@@ -35,6 +48,144 @@ a,
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.v-timeline-item__body{
+  max-width:300px;
+  width: 100%;
+}
+.v-timeline-divider__dot{
+  outline: 4px solid var(--secondary)!important;
+}
+.v-dialog .v-overlay__content {
+  width: 100%!important;
+  padding: 0px 20px 0px 20px;
+  max-width: 600px;
+/*   align-items: center; */
+}
+.box-remove .v-btn:hover > .v-btn__overlay {
+  opacity: calc(0.4 * var(--v-theme-overlay-multiplier))!important;
+  transition:all  250ms ease-in;
+}
+.box-remove .v-btn> .v-btn__overlay {
+  opacity: calc(0.2 * var(--v-theme-overlay-multiplier))!important;
+  transition:all  250ms ease-out;
+}
+
+.style-icon{
+  min-width: 0px;
+  border-radius: 50%;
+}
+.timeline-task{
+  position: absolute;
+  top: 0px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 2;
+  background: #ffffffe1;
+
+}
+/*********** TOSTAR STYLE****************/
+.wrapper-tostar{
+  position: relative;
+  top: 2px;
+}
+.tostar-container{
+  animation-name: tostar;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-duration: 400ms;
+  position: absolute;
+  padding: 10px 20px;
+  background: #5cb85c;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  flex-direction: row-reverse;
+  width: 100%;
+  box-shadow: 4px 5px 0px #30952a;
+}
+
+.tostar-btn{
+  min-width: 35px;
+  height: 35px;
+  background: #ffffff47;
+  border-radius: 50px;
+  margin-left: 10px;
+  position: relative;
+  border: 1px solid white;
+  transition: all 250ms ease-in;
+  box-shadow: 3px 3px 0px #30952a;
+  opacity: .8;
+  cursor: pointer;
+}
+
+.tostar-btn:hover{
+  background: #5cb85c;
+  border-radius: 50px;
+  margin-left: 20px;
+  position: relative;
+  border: 1px solid white;
+  transition:  all 150ms ease-out;
+  box-shadow: 1px 1px 0px #11500e;
+}
+
+.tostar-btn::before {
+  content: '';
+  width: 25px;
+  height: 3px;
+  background: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 150ms ease-in;
+  transform: rotateZ(45deg) translate3d(14px, 8px, 0px);
+}
+
+.tostar-btn:hover::before {
+  transition:  all 150ms ease-out;
+  transform: rotateZ(0deg) translate3d(4px, 15px, 0px);
+}
+
+.tostar-btn::after {
+  content: '';
+  width: 25px;
+  height: 3px;
+  background: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition:  all 150ms ease-in;
+  transform: rotateZ(315deg) translate3d(-8px, 14px, 0px);
+} 
+
+.tostar-btn:hover::after {
+  transition:  all 150ms ease-out;
+  transform: rotateZ(360deg) translate3d(4px, 15px, 0px);
+} 
+.headline-medium {
+  font-size: 17px!important; 
+  font-weight: 500!important;
+  font-style: inherit;
+}
+
+.v-list-item--nav .v-list-item-title{
+  line-height: 1.2rem;
+}
+.v-navigation-drawer__content{
+  position: relative;
+}
+
+.background-register-title{
+  background-position-y:83%!important;
+  letter-spacing: 2px;
+  color:var(--primary)!important;
+  font-size: 1.2em;
+  text-shadow: 2px 2px 0px white, 2px 2px 2px var(--primary);
 }
 @media (hover: hover) {
   a:hover {
