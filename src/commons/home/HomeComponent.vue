@@ -1,7 +1,7 @@
 
 <template>
   <v-main >
-    <v-sheet class="overflow-y-auto pa-6 background-box-headling" color="#E0F7FA" rounded>
+    <v-sheet class="overflow-y-auto pa-3 background-box-headling" color="#E0F7FA" rounded>
       <h1 class="text-center mt-10 mb-10" color="white">Task Web Application</h1>
     </v-sheet>
     <v-spacer class="pb-5"></v-spacer>

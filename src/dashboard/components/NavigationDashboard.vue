@@ -27,13 +27,14 @@
   const props = defineProps({
     formRules : Object
   })
+  const emits = defineEmits(['clickLogOut','createTask','updateComplete','updateEdit','removeTask']);
 
   onMounted(async () => {
-    try {
+/*     try {
       await userStoreService.fetchUserData();
     } catch (err) {
       console.log(err);
-    }
+    } */
     try {
       await taskStoreService.fetchAllTasksCompletedCount(userStoreService.user.id);
     } catch (err) {
@@ -53,6 +54,7 @@
         elem.click();
       } 
     }
+
   }); 
 
 
@@ -82,7 +84,6 @@
     complete.value = !complete.value;
   }
 
-  const emits = defineEmits(['clickLogOut','createTask','updateComplete','updateEdit','removeTask']);
   const logOutUser = () =>{
     emits('clickLogOut');
   };
@@ -102,7 +103,7 @@
 </script>
 <template>
   <v-card class="margin-card">
-    <v-layout>
+    <v-layout >
       <v-navigation-drawer expand-on-hover rail>
         <v-list>
           <v-list-item
@@ -132,7 +133,7 @@
         </v-list>
       </v-navigation-drawer>
       <v-main  :style="{ 'height': '100vh' }">
-        <v-theme-provider  v-if="loading === true" :loading="loading" theme="dark" with-background class="box-welcome-profile pa-10">
+        <v-theme-provider  v-if="loading === true"  with-background class="box-welcome-profile pa-10">
           <v-card class="card-welcome"  subtitle="Loading profile...">
           Welcome {{userData.name}}!
           </v-card>
@@ -157,17 +158,23 @@
   }
 .box-welcome-profile{
   height: 100vh;
+  background: var(--primary);
 }
 .card-welcome{
   height: 100%;
+  background: #e0f7fa url('../../assets/undraw_loading_re_5axr.svg') no-repeat;
+  background-size: contain;
+  background-position: bottom center;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column-reverse;
+  color: var(--primary);
+  
 }
 
 .card-welcome{
-  font-size: 2.2em;
+  font-size: 3em;
   padding-top: 10px;
 }
 </style>

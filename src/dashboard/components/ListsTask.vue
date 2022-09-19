@@ -21,7 +21,7 @@
         </v-chip>
       </template>
       <div class="modal-box">
-        <AppModalStatusTask  :dataTask="task" @emitStatusComplete="statusComplete"/>
+        <AppModalStatusTask :complete="task.is_complete" :dataTask="task" @emitStatusComplete="statusComplete"/>
         <AppModalEdit :dataTask="task" @editTask="editTask" @emitRemoveTask="emitRemoveTask"/>
       </div>
       <v-card class="background-task" max-width="300px">
@@ -63,6 +63,7 @@ app
   onMounted( async () =>{
     try {
       await taskStoreService.fetchAllTasks( userStoreService.user.id )
+      console.log(tasks)
     } catch (err) {
       console.log(err);
     }

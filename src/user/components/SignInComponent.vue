@@ -31,8 +31,8 @@
 </script>
     
 <template>
-  <v-sheet class="pa-6 d-flex align-center pb-10 pt-10"  color="#E0F7FA" rounded>
-    <v-container class="pb-10 pt-10 background-box-singin">
+  <v-sheet class="pa-3 d-flex align-center pb-10 pt-10"  color="#E0F7FA" rounded>
+    <v-container class="pb-10 pt-10 pl-0 pr-0 background-box-singin">
       <v-row no-gutters> 
         <v-col cols="12" lg="6" sm="12">
           <v-card class="mx-auto px-6 py-8 mt-10 mb-10" color="white" max-width="400" rounded>

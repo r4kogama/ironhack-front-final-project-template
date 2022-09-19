@@ -22,7 +22,7 @@
   provide( 'rules', formRules);
       
   const logOut = async () =>{
-    try {
+    try {   
       userStoreService.signOut();
       router.push({ path: "/home" });
     } catch (err) {
@@ -44,8 +44,8 @@
   };
   //update status actual task by id
   const updateTaskComplete = async (data) =>{
-   let task = new Task(parseInt(data[0]), null, null, !data[1].value);
-    if(typeof task === 'object'){
+   let task = new Task(parseInt(data[0]), null, null, !data[1]);
+  if(typeof task === 'object'){
       try {
         taskStoreService.changeStatus( task, userStoreService.user.id );
       } catch (err) {
@@ -59,6 +59,7 @@
   //update info task by id
   const updateTaskEditForm = async (dataInputs) =>{
     let task = new Task(dataInputs[0].value, dataInputs[1].value, dataInputs[2].value, null);
+    
     if(typeof task === 'object'){
       try {
         taskStoreService.editTask( task, userStoreService.user.id );

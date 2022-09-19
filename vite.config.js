@@ -8,7 +8,7 @@ import vuetify from 'vite-plugin-vuetify'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  /* base: '/ironhack-front-final-project-template/', */
+ /*  base: '/ironhack-front-final-project-template/',  */
   plugins: [
 		vue(),
 		vuetify({ autoImport: true }),

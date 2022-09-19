@@ -30,7 +30,6 @@
 
      const showMenu = () =>{
       drawer.value = !drawer.value;
-      console.log(drawer.value);
      };
 
     onMounted(async () => {

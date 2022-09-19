@@ -22,9 +22,9 @@
                 <v-alert v-else-if="complete === true" prominent type="warning" variant="outlined">
                   Did you leave something <strong>to do</strong>? Your task will change to <strong>incompleted</strong>
                 </v-alert>
-                  <v-text-field v-model="id" readonly 
+                  <v-text-field v-model="idtask" readonly 
                       :type="'hidden'"
-                      :value="id">
+                      v-bind:value="idtask">
                   </v-text-field>
               </v-card-text>
               <v-card-actions >
@@ -60,22 +60,25 @@
  </template>
  
  <script setup>
-  import { ref } from 'vue';
+  import { reactive, ref } from 'vue';
   const dialog = ref(false);
-  const id = ref(task.dataTask.id);
+  const idtask = ref(task.dataTask.id);
   const complete = ref(task.dataTask.is_complete);
   const form = ref(false);
   const loading = ref(false);
   const task = defineProps({
-    dataTask : Object
+    dataTask : Object,
+    complete: Boolean
   });
 
   const emits = defineEmits(['emitStatusComplete']);
   const updateStatusSubmit = (event) => {
+    
     try{
       if (!form.value) return;
       loading.value = true;
-      let formData = [...event.currentTarget[0].value, complete];
+      let formData = [event.currentTarget[0].value, complete.value];
+      console.log(formData)
       setTimeout(() => (loadingForm()), 1000);
       const loadingForm = () => {
         loading.value = false;//stop animation
