@@ -6,6 +6,7 @@
   <v-timeline align="start" class="timeline-task padding-timeline">
     <v-timeline-item
       v-for="task in tasks"
+      :key="task.id"
       :icon="task.is_complete ? 'mdi-clipboard-check-outline' : 'mdi-clipboard-clock-outline'"
       :dot-color="task.is_complete ? 'green-lighten-3' : 'red-lighten-3'"
       fill-dot
@@ -20,11 +21,11 @@
         </v-chip>
       </template>
       <div class="modal-box">
-        <AppModalStatusTask :dataTask="task" @emitStatusComplete="statusComplete"/>
+        <AppModalStatusTask :complete="task.is_complete" :dataTask="task" @emitStatusComplete="statusComplete"/>
         <AppModalEdit :dataTask="task" @editTask="editTask" @emitRemoveTask="emitRemoveTask"/>
       </div>
       <v-card class="background-task" max-width="300px">
-        <v-card-title :class="['text-h6','text-center','letter']"  >
+        <v-card-title :class="['text-h6','text-center']"  :color="primary">
           {{task.title}}
         </v-card-title>
         <v-card-text class="white text--primary">

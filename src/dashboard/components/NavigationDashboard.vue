@@ -26,7 +26,6 @@
 
   const props = defineProps({
     formRules : Object,
-    updateComplete : Boolean
   })
   const emits = defineEmits(['clickLogOut','createTask','updateComplete','updateEdit','removeTask']);
 
@@ -143,7 +142,7 @@
           </v-card>
         </v-theme-provider>
         <AppTaskForm  v-if="form === true" :formRules="formRules" @createTask="emitTask" />
-        <AppListsTask v-else-if="list === true" :updateComplete="updateComplete" @updateComplete="emitComplete" @updateTask="emitTaskUpdate" @taskRemove="taskRemove"/>
+        <AppListsTask v-else-if="list === true"  @updateComplete="emitComplete" @updateTask="emitTaskUpdate" @taskRemove="taskRemove"/>
         <AppTaskComplete v-else-if="complete === true"/>
       </v-main>
     </v-layout>

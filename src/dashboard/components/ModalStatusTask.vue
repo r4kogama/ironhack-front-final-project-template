@@ -63,15 +63,17 @@
   import { reactive, ref } from 'vue';
   const dialog = ref(false);
   const idtask = ref(props.dataTask.id);
-  const complete = ref(props.dataTask.is_complete);
+  const complete = ref(props.complete);
   const form = ref(false);
   const loading = ref(false);
   const props = defineProps({
     dataTask : Object,
+    complete: Boolean,
   });
 
   const emits = defineEmits(['emitStatusComplete']);
   const updateStatusSubmit = (event) => {
+    
     try{
       if (!form.value) return;
       loading.value = true;
