@@ -2,6 +2,7 @@
 import { ref } from '@vue/reactivity';
   const email = ref(null);
   const name = ref(null);
+  const surname = ref(null);
   const password = ref(null);
   const repass = ref(null);
   const form = ref(false);

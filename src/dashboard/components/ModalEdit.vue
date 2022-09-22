@@ -27,15 +27,10 @@
                   prepend-inner-icon="mdi-card-text">
                 </v-text-field>
                 <v-spacer class="pt-2 pb-2"></v-spacer>
-                <v-textarea v-model="description"
+                <v-textarea v-model="description"  label="Description" rows="3"  auto-grow  counter="255" clearable
                   :rules="[ formRules.required, formRules.text]"
                   prepend-inner-icon="mdi-comment"
                   :value="description"
-                  label="Description"
-                  rows="3"
-                  auto-grow
-                  counter="255"
-                  clearable
                 ></v-textarea>
               </v-container>
               <v-divider></v-divider>

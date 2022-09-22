@@ -90,6 +90,11 @@ a,
   background: #ffffffe1;
 
 }
+
+.letter::first-letter, .v-list-item-title::first-letter,  .v-card-text::first-letter, .v-alert__content::first-letter {
+  text-transform:capitalize;
+}
+
 /*********** TOSTAR STYLE****************/
 .wrapper-tostar{
   position: relative;

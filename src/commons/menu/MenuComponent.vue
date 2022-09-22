@@ -1,7 +1,7 @@
   <template>
     <v-navigation-drawer color="cyan" class="mt-3" v-model="drawer" temporary>
       <v-list class="pt-10" density="compact"  nav>
-        <router-link :to="'/dashboard'" v-if="userData !== null">
+   <router-link :to="'/dashboard'" v-if="userData !== null">
           <v-list-item prepend-avatar="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="text-size-menu"  :title="userData.name.concat(' ').concat(userData.surname).toUpperCase()" value="dashboard"></v-list-item>
         </router-link>
         <router-link :to="'/home'">

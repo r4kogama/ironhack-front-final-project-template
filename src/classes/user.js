@@ -4,11 +4,12 @@ class User{
     this.surname = (surname !== 'undefined' && surname !== null) ? surname.trim() : null;
     this.email = (email !== 'undefined' && email !== null) ? email.trim().toLowerCase() : null;
     this.password = (password !== 'undefined' && password !== null) ? password.trim() : null;
-    this.terms = (terms !== 'undefined' &&  terms !== null) ? terms : null;
+    this.terms = (terms !== 'undefined' &&  terms !== null) ? terms : false;
   }
 
   getOnlyName(name){
-     return name.split(' ')[0];
+    let wordName = name.split(' ')[0];
+     return wordName.charAt(0).toUpperCase() + wordName.slice(1);
   }
 }
 export default User;

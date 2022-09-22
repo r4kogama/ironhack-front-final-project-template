@@ -17,7 +17,7 @@
                 <v-alert
                   :value="true"
                   type="success"
-                  class="white--text"
+                  :class="['white--text', 'letter']"
                   density="comfortable"
                   border="start"
                   :title="task.title">
@@ -49,7 +49,6 @@ let lengthTask = reactive([])
   onMounted( async () =>{
     try {
       await taskStoreService.fetchAllTasksCompleted( userStoreService.user.id );
-      console.log(tasks)
       tasks._object.tasks.forEach(task => {
         lengthTask.push(task)
       })
@@ -85,4 +84,5 @@ let lengthTask = reactive([])
 .timeline-task .v-timeline--vertical.v-timeline--align-center {
     justify-content: flex-start;
 }
+
   </style>

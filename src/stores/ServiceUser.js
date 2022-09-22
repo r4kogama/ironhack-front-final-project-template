@@ -18,8 +18,6 @@ export const userStore = defineStore('user', {
       const { data, error } = await supabase.from('userdata').select('*').match({ id: this.user.id });
       if(error) throw error;
       this.userData = data[0];
-      console.log(  this.userData)
-      console.log(  this.user)
     },
     //only auth
     async signUpAuth ( email, password) {
@@ -49,9 +47,9 @@ export const userStore = defineStore('user', {
     async signOut () {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
-      window.onbeforeunload = function() {
+  /*     window.onbeforeunload = function() {
         localStorage.clear();
-      };
+      }; */
       this.userData = null;
       this.user = null;
     }

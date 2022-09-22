@@ -12,7 +12,7 @@
   import AppHeader from "./commons/header/HeaderComponent.vue";
   import AppMenu from "./commons/menu/MenuComponent.vue";
   import { userStore } from "./stores/ServiceUser.js";
-  import { onMounted, ref } from 'vue';
+  import { onMounted, ref, provide } from 'vue';
   import { storeToRefs } from "pinia";
   import { useRouter } from "vue-router";
   import { createApp } from 'vue';
@@ -27,6 +27,7 @@
     const userStoreService = userStore();
     const { user } = storeToRefs(userStoreService);
     const router = useRouter();
+    provide( 'drawer', drawer);
 
      const showMenu = () =>{
       drawer.value = !drawer.value;

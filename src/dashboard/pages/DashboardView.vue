@@ -59,7 +59,6 @@
   //update info task by id
   const updateTaskEditForm = async (dataInputs) =>{
     let task = new Task(dataInputs[0].value, dataInputs[1].value, dataInputs[2].value, null);
-    
     if(typeof task === 'object'){
       try {
         taskStoreService.editTask( task, userStoreService.user.id );
@@ -85,7 +84,7 @@
 </script>
     
 <template>
-  <AppNavigation 
+  <AppNavigation
   @clickLogOut="logOut" 
   @createTask="taskSubmitForm" 
   @updateComplete="updateTaskComplete"

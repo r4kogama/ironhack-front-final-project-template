@@ -2,7 +2,7 @@
   import { userStore } from "../../stores/ServiceUser.js";
   import { taskStore } from "../../stores/ServiceTask.js";
   import { storeToRefs } from "pinia";
-  import { createApp, onMounted, ref } from 'vue';
+  import { createApp, onMounted, ref , reactive} from 'vue';
   import AppTaskForm from "./TaskForm.vue";
   import AppListsTask from "./ListsTask.vue";
   import AppTaskComplete from "./TaskComplete.vue";
@@ -15,7 +15,7 @@
   const { task, taskCount, taskCountComplete } = storeToRefs(taskStoreService);
   const form = ref(false);
   const list = ref(false);
-  const userName = ref(userData.name);
+  const userName = reactive([]);
   const complete = ref(false);
   const loading = ref(false);
   const app = createApp({});
@@ -25,16 +25,20 @@
     .component('AppTaskComplete', AppTaskComplete)
 
   const props = defineProps({
-    formRules : Object
+    formRules : Object,
+    updateComplete : Boolean
   })
   const emits = defineEmits(['clickLogOut','createTask','updateComplete','updateEdit','removeTask']);
 
   onMounted(async () => {
-/*     try {
+    try {
       await userStoreService.fetchUserData();
+      [userData._object.userData].forEach(user => {
+        userName.push(user.name);
+      })  
     } catch (err) {
       console.log(err);
-    } */
+    } 
     try {
       await taskStoreService.fetchAllTasksCompletedCount(userStoreService.user.id);
     } catch (err) {
@@ -45,7 +49,7 @@
     } catch (err) {
       console.log(err);
     }
-    loading.value = true;
+   loading.value = true;
     setTimeout(() => (loadingForm()), 2000);
     const loadingForm = () => {
       loading.value = false;//stop animation
@@ -53,7 +57,7 @@
         const elem = document.getElementById('btn-list');
         elem.click();
       } 
-    }
+    } 
 
   }); 
 
@@ -106,11 +110,11 @@
     <v-layout >
       <v-navigation-drawer expand-on-hover rail>
         <v-list>
-          <v-list-item
+          <v-list-item class="letter"
             prepend-avatar="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-            :title='userData.name'
+            :title="userName"
             :subtitle='user.email'
-          ></v-list-item>
+          ></v-list-item>     
         </v-list>
         <v-divider></v-divider>
         <v-list density="compact" nav>
@@ -134,12 +138,12 @@
       </v-navigation-drawer>
       <v-main  :style="{ 'height': '100vh' }">
         <v-theme-provider  v-if="loading === true"  with-background class="box-welcome-profile pa-10">
-          <v-card class="card-welcome"  subtitle="Loading profile...">
+          <v-card class="card-welcome letter"  subtitle="Loading profile...">
           Welcome {{userData.name}}!
           </v-card>
         </v-theme-provider>
         <AppTaskForm  v-if="form === true" :formRules="formRules" @createTask="emitTask" />
-        <AppListsTask v-else-if="list === true" @updateComplete="emitComplete" @updateTask="emitTaskUpdate" @taskRemove="taskRemove"/>
+        <AppListsTask v-else-if="list === true" :updateComplete="updateComplete" @updateComplete="emitComplete" @updateTask="emitTaskUpdate" @taskRemove="taskRemove"/>
         <AppTaskComplete v-else-if="complete === true"/>
       </v-main>
     </v-layout>

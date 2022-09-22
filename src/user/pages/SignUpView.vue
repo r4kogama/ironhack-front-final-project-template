@@ -36,6 +36,7 @@
   const registerUser = async (inputs) =>{
       //name, surname, email, pass, terms
       let user = new User(inputs[0].value, inputs[1].value, inputs[2].value,inputs[3].value, inputs[5].value);
+      console.log(user)
       if ( user.password && user.email && user.name && user.surname && user.terms) {
         try {
           await userStoreService.signUpAuth(

@@ -62,23 +62,20 @@
  <script setup>
   import { reactive, ref } from 'vue';
   const dialog = ref(false);
-  const idtask = ref(task.dataTask.id);
-  const complete = ref(task.dataTask.is_complete);
+  const idtask = ref(props.dataTask.id);
+  const complete = ref(props.dataTask.is_complete);
   const form = ref(false);
   const loading = ref(false);
-  const task = defineProps({
+  const props = defineProps({
     dataTask : Object,
-    complete: Boolean
   });
 
   const emits = defineEmits(['emitStatusComplete']);
   const updateStatusSubmit = (event) => {
-    
     try{
       if (!form.value) return;
       loading.value = true;
       let formData = [event.currentTarget[0].value, complete.value];
-      console.log(formData)
       setTimeout(() => (loadingForm()), 1000);
       const loadingForm = () => {
         loading.value = false;//stop animation

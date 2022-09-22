@@ -83,7 +83,7 @@
      color:white;
    }
    .btn-close{
-     background: var(--button);
+     background: var(--primary);
    }
 
    .box-card-delete{
