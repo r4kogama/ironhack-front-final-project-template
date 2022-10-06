@@ -62,6 +62,7 @@
                   Sign In
                 </v-btn>
               </v-hover>
+              <span class="wrapper-tostar"></span>
             </v-form>
           </v-card>
         </v-col>

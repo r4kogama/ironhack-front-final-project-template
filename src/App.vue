@@ -3,7 +3,7 @@
   <v-container>
       <AppHeader :drawer="drawer"  @clickMenu="showMenu()"/>
       <AppMenu :drawer="drawer" />
-    <router-view/>
+      <router-view/>
   </v-container>
 </v-app>
 </template>
@@ -11,6 +11,7 @@
 <script setup>
   import AppHeader from "./commons/header/HeaderComponent.vue";
   import AppMenu from "./commons/menu/MenuComponent.vue";
+
   import { userStore } from "./stores/ServiceUser.js";
   import { onMounted, ref, provide } from 'vue';
   import { storeToRefs } from "pinia";
@@ -45,4 +46,6 @@
         console.log(err);
       }
     });  
+
+ 
 </script>

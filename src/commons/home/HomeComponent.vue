@@ -17,7 +17,6 @@
   import AppFooter  from "../footer/FooterComponent.vue"; 
   import AppSignIn from '../../user/pages/SignInView.vue';
   import { createApp } from 'vue';
-
   const app = createApp({});
   app
     .component('AppFooter', AppFooter)
